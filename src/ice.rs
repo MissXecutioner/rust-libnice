@@ -176,9 +176,19 @@ impl Agent {
     /// Removes a stream from the nice agent.
     /// This steam must not be registered at this agent.
     fn remove_stream_internal(&mut self, stream_id: u32) {
-        let sinks = self.state_sinks.lock().unwrap()
-            .filter(|(sink_stream_id, sink_component_id), _| *sink_stream_id == stream_id)
-            .collect::<Vec<_>>();
+        let mut state_sinks = self.state_sinks.lock().unwrap();
+        let keys_to_remove: Vec<_> = state_sinks
+            .keys()
+            .filter(|(sink_stream_id, _)| *sink_stream_id == stream_id)
+            .cloned()
+            .collect();
+        
+        let mut sinks = Vec::new();
+        for key in keys_to_remove {
+            if let Some(sink) = state_sinks.remove(&key) {
+                sinks.push((key, sink));
+            }
+        }
 
         for ((_, component_id), _) in sinks {
             let _ = self.agent.detach_recv(stream_id, component_id, &self.ctx);
