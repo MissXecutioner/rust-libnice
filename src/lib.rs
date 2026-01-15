@@ -1,4 +1,4 @@
-#![feature(hash_drain_filter)]
+//#![feature(hash_drain_filter)]
 #![deny(missing_docs)]
 //! Safe high- and low-level bindings to [libnice].
 //!
