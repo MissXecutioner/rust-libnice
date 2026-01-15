@@ -177,7 +177,7 @@ impl Agent {
     /// This steam must not be registered at this agent.
     fn remove_stream_internal(&mut self, stream_id: u32) {
         let sinks = self.state_sinks.lock().unwrap()
-            .drain_filter(|(sink_stream_id, sink_component_id), _| *sink_stream_id == stream_id)
+            .filter(|(sink_stream_id, sink_component_id), _| *sink_stream_id == stream_id)
             .collect::<Vec<_>>();
 
         for ((_, component_id), _) in sinks {
