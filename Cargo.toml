@@ -12,7 +12,7 @@ repository = "https://github.com/johni0702/rust-libnice"
 libnice-sys = { git = "https://github.com/MissXecutioner/rust-libnice-sys" }
 #libnice-sys = { path = "..\\rust-libnice-sys" }
 libc = "0.2.180"
-glib = "0.17.0"
+glib = "0.9"
 futures = "0.3.31"
 webrtc-sdp = "0.3.13"
 tokio = { version = "1.49", features = ["rt", "macros"] }
